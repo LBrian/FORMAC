@@ -17,7 +17,7 @@ def download_folder(logger, webdav, src, dest):
                 # local has a copy, sync up differences
                 if fname.contenttype == "httpd/unix-directory":
                     # iterate folder
-                    logger.info("Synchronizing folder %s from Safesync", decoded_fname)
+                    #logger.info("Synchronizing folder %s from Safesync", decoded_fname)
                     download_folder(logger, webdav, fname.name, dest)
                 else:
                     local_mtime = os.path.getmtime(dest + decoded_fname)
@@ -44,7 +44,7 @@ def download_folder(logger, webdav, src, dest):
 
 if __name__ == '__main__':
     ## logging
-    logging.basicConfig(filename='/tmp/safesync_agent.log', level=logging.INFO)
+    logging.basicConfig(filename='/var/log/safesync_agent.log', level=logging.WARNING)
     logger = logging.getLogger("[Safesync Agent]")
 
     ## create pid file
@@ -59,6 +59,9 @@ if __name__ == '__main__':
         f.close()
 
     ## Trend Micro Safesync configuration
+    # APAC/America WebDAV server
+    #safesync_host = "dav.dc1.safesync.com"
+    # EMEA WebDAV server
     safesync_host = "dav.dc2.safesync.com"
     safesync_user = "safesynctest1@yopmail.com"
     safesync_pass = "safesynctest1"
